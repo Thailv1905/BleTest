@@ -125,6 +125,7 @@ class FlutterBlue {
       _isScanning.add(false);
       throw e;
     }
+    _channel.setMethodCallHandler(_handleMethod);
 
     yield* FlutterBlue.instance._methodStream
         .where((m) => m.method == "ScanResult")
@@ -204,6 +205,10 @@ class FlutterBlue {
     _methodStream.listen((event) {
       print("Listen: ${event.method}");
     });
+  }
+  Future<dynamic> _handleMethod(MethodCall call) async {
+    dynamic data = call.arguments;
+    print("onRecive: ${call.method} - $data");
   }
 }
 

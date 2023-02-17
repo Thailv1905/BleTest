@@ -2,6 +2,7 @@ group 'com.pauldemarco.flutter_blue'
 version '1.0'
 
 buildscript {
+    ext.kotlin_version = '1.6.10'
     repositories {
         google()
         jcenter()
@@ -9,6 +10,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15'
     }
 }
@@ -22,12 +24,16 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.google.protobuf'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
     sourceSets {
         main {
@@ -54,5 +60,7 @@ protobuf {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.protobuf:protobuf-javalite:3.11.4'
+    implementation 'com.google.code.gson:gson:2.8.8'
 }
